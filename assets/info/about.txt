@@ -1,0 +1,11 @@
+Project name: KingCode
+Project version: V5.8
+
+
+Author name: King Ebuka 👑 
+ 
+Can now write external Css. 
+Can now write js
+stores code in localStorage 
+snippets 
+console
