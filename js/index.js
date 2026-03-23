@@ -1,5 +1,5 @@
-/*Project name v5.8*/
-console.log("##Code Editor v5.8##");
+/*KingCode v6.0*/
+console.log("##KingCode v6.0##");
 console.log("👑 King Ebuka 👑");
 
 /**Debounce function**/
@@ -90,7 +90,7 @@ function pro(text) {
          });
       }
 
-
+/*welcome page*/
 function verif() {
   if ("isLoaded" in sessionStorage){
     let welcomePage = $("#welcome");
@@ -297,7 +297,6 @@ function loadCode() {
     let its = document.querySelectorAll(".inputsection");
     let opstyle = document.createElement("style");
     output.contentDocument.head.appendChild(opstyle);
-    let hsnippets = document.getElementById("hselect");
     let csnippets = document.getElementById("cselect");
 
 /**update code**/
@@ -336,6 +335,147 @@ function updatePreview() {
   input.addEventListener('input', debouncedUpdate);
 });
 
+/*auto complete*/
+let autoCompDat = [
+{id:"a", fullCode:"<a> </a>"},
+{id:"abbr", fullCode:"<abbr> </abbr>"},
+{id:"address", fullCode:"<address> </address>"},
+{id:"area", fullCode:"<area>"},
+{id:"article", fullCode:"<article> </article>"},
+{id:"aside", fullCode:"<aside> </aside>"},
+{id:"audio", fullCode:"<audio> </audio>"},
+{id:"b", fullCode:"<b> </b>"},
+{id:"base", fullCode:"<base>"},
+{id:"bdi", fullCode:"<bdi> </bdi>"},
+{id:"bdo", fullCode:"<bdo> </bdo>"},
+{id:"blockquote", fullCode:"<blockquote> </blockquote>"},
+{id:"body", fullCode:"<body> </body>"},
+{id:"br", fullCode:"<br>"},
+{id:"button", fullCode:"<button> </button>"},
+{id:"canvas", fullCode:"<canvas> </canvas>"},
+{id:"caption", fullCode:"<caption> </caption>"},
+{id:"cite", fullCode:"<cite> </cite>"},
+{id:"code", fullCode:"<code> </code>"},
+{id:"col", fullCode:"<col>"},
+{id:"colgroup", fullCode:"<colgroup> </colgroup>"},
+{id:"data", fullCode:"<data> </data>"},
+{id:"datalist", fullCode:"<datalist> </datalist>"},
+{id:"dd", fullCode:"<dd> </dd>"},
+{id:"del", fullCode:"<del> </del>"},
+{id:"details", fullCode:"<details> </details>"},
+{id:"dfn", fullCode:"<dfn> </dfn>"},
+{id:"dialog", fullCode:"<dialog> </dialog>"},
+{id:"div", fullCode:"<div> </div>"},
+{id:"dl", fullCode:"<dl> </dl>"},
+{id:"dt", fullCode:"<dt> </dt>"},
+{id:"em", fullCode:"<em> </em>"},
+{id:"embed", fullCode:"<embed>"},
+{id:"fieldset", fullCode:"<fieldset> </fieldset>"},
+{id:"figcaption", fullCode:"<figcaption> </figcaption>"},
+{id:"figure", fullCode:"<figure> </figure>"},
+{id:"footer", fullCode:"<footer> </footer>"},
+{id:"form", fullCode:"<form> </form>"},
+{id:"h1", fullCode:"<h1> </h1>"},
+{id:"h2", fullCode:"<h2> </h2>"},
+{id:"h3", fullCode:"<h3> </h3>"},
+{id:"h4", fullCode:"<h4> </h4>"},
+{id:"h5", fullCode:"<h5> </h5>"},
+{id:"h6", fullCode:"<h6> </h6>"},
+{id:"head", fullCode:"<head> </head>"},
+{id:"header", fullCode:"<header> </header>"},
+{id:"hr", fullCode:"<hr>"},
+{id:"html", fullCode:"<html> </html>"},
+{id:"i", fullCode:"<i> </i>"},
+{id:"iframe", fullCode:"<iframe> </iframe>"},
+{id:"img", fullCode:"<img>"},
+{id:"input", fullCode:"<input>"},
+{id:"ins", fullCode:"<ins> </ins>"},
+{id:"kbd", fullCode:"<kbd> </kbd>"},
+{id:"label", fullCode:"<label> </label>"},
+{id:"legend", fullCode:"<legend> </legend>"},
+{id:"li", fullCode:"<li> </li>"},
+{id:"link", fullCode:"<link>"},
+{id:"main", fullCode:"<main> </main>"},
+{id:"map", fullCode:"<map> </map>"},
+{id:"mark", fullCode:"<mark> </mark>"},
+{id:"marquee", fullCode:"<marquee> </marquee>"},
+{id:"menu", fullCode:"<menu> </menu>"},
+{id:"meta", fullCode:"<meta>"},
+{id:"meter", fullCode:"<meter> </meter>"},
+{id:"nav", fullCode:"<nav> </nav>"},
+{id:"noscript", fullCode:"<noscript> </noscript>"},
+{id:"object", fullCode:"<object> </object>"},
+{id:"ol", fullCode:"<ol> </ol>"},
+{id:"optgroup", fullCode:"<optgroup> </optgroup>"},
+{id:"option", fullCode:"<option> </option>"},
+{id:"output", fullCode:"<output> </output>"},
+{id:"p", fullCode:"<p> </p>"},
+{id:"param", fullCode:"<param>"},
+{id:"picture", fullCode:"<picture> </picture>"},
+{id:"pre", fullCode:"<pre> </pre>"},
+{id:"progress", fullCode:"<progress> </progress>"},
+{id:"q", fullCode:"<q> </q>"},
+{id:"rb", fullCode:"<rb> </rb>"},
+{id:"rp", fullCode:"<rp> </rp>"},
+{id:"rt", fullCode:"<rt> </rt>"},
+{id:"ruby", fullCode:"<ruby> </ruby>"},
+{id:"s", fullCode:"<s> </s>"},
+{id:"samp", fullCode:"<samp> </samp>"},
+{id:"script", fullCode:"<script> </script>"},
+{id:"section", fullCode:"<section> </section>"},
+{id:"select", fullCode:"<select> </select>"},
+{id:"slot", fullCode:"<slot> </slot>"},
+{id:"small", fullCode:"<small> </small>"},
+{id:"source", fullCode:"<source>"},
+{id:"span", fullCode:"<span> </span>"},
+{id:"strong", fullCode:"<strong> </strong>"},
+{id:"style", fullCode:"<style> </style>"},
+{id:"sub", fullCode:"<sub> </sub>"},
+{id:"summary", fullCode:"<summary> </summary>"},
+{id:"sup", fullCode:"<sup> </sup>"},
+{id:"table", fullCode:"<table> </table>"},
+{id:"tbody", fullCode:"<tbody> </tbody>"},
+{id:"td", fullCode:"<td> </td>"},
+{id:"template", fullCode:"<template> </template>"},
+{id:"textarea", fullCode:"<textarea> </textarea>"},
+{id:"tfoot", fullCode:"<tfoot> </tfoot>"},
+{id:"th", fullCode:"<th> </th>"},
+{id:"thead", fullCode:"<thead> </thead>"},
+{id:"time", fullCode:"<time> </time>"},
+{id:"title", fullCode:"<title> </title>"},
+{id:"tr", fullCode:"<tr> </tr>"},
+{id:"track", fullCode:"<track>"},
+{id:"u", fullCode:"<u> </u>"},
+{id:"ul", fullCode:"<ul> </ul>"},
+{id:"var", fullCode:"<var> </var>"},
+{id:"video", fullCode:"<video> </video>"},
+{id:"wbr", fullCode:"<wbr>"}
+];
+
+$("#html").addEventListener("keydown", function(e){
+  let input =$("#html");
+   if(e.key == "Enter"){
+     autoCompDat.forEach(data=>{
+       let cPos = input.selectionStart;
+       let tbc = input.value.slice(0, cPos);
+       let tac = input.value.slice(cPos);
+      if(tbc.trimEnd().toLowerCase().endsWith(data.id) == true){
+        e.preventDefault();
+        let changed = tbc.slice(0, tbc.lastIndexOf(data.id));
+        let toInput = changed + data.fullCode + tac;
+        input.value = toInput;
+        input.selectionStart = cPos + 2;
+        input.selectionEnd = cPos+ 2;
+        input.focus();
+         updatePreview();
+        
+      } else {return; updatePreview()};
+       
+     })
+     
+   }else{ return; updatePreview()};
+  
+})
 
 /**show or hide inputs**/
 function show(inp) {
@@ -346,9 +486,11 @@ function show(inp) {
 });
    buttons.forEach(button => {
      button.style.color = "#fff"
+     button.style.borderTopColor = "#2e2e2e"
    });
     html.style.display = "block";
     $('#hbtn').style.color = '#09D89E';
+    $('#hbtn').style.borderTopColor = 'yellow';
     html.focus();
   }
   
@@ -359,9 +501,11 @@ function show(inp) {
 
    buttons.forEach(button => {
      button.style.color = "#fff"
+     button.style.borderTopColor = "#2e2e2e"
    });
     css.style.display = "block";
     $('#cbtn').style.color = '#09D89E';
+    $('#cbtn').style.borderTopColor = 'yellow';
     css.focus();
   }
   
@@ -372,25 +516,18 @@ function show(inp) {
 
    buttons.forEach(button => {
      button.style.color = "#fff"
+     button.style.borderTopColor = "#2e2e2e"
    });
     js.style.display = "block";
     $('#jbtn').style.color = '#09D89E';
+    $('#jbtn').style.borderTopColor = 'yellow';
     js.focus();
   }
 }
 
 /**snippets**/
 function snip(txtarea) {
-  if (txtarea == 'html') {
-  let pos = html.selectionStart;
-  console.log(pos);
-  let voj = pos;
-  let snips = hsnippets.value;
-  html.value = html.value.slice(0, voj) + snips + html.value.slice(pos);
-  updatePreview();
-  hsnippets.value = "";
-}
-  else if (txtarea == 'css') {
+  if (txtarea == 'css') {
   let pos = css.selectionStart;
   console.log(pos);
   let voj = pos;

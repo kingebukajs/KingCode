@@ -1,4 +1,4 @@
-/*Code editor v5.8*/
+/*KingCode v6.0*/
 
 @font-face{
   font-family: 'Digital7';
@@ -8,6 +8,11 @@
 @font-face{
   font-family: 'Orbitron';
   src: url('../assets/fonts/orbitron-bold.otf') format('opentype');
+}
+
+@font-face{
+  font-family: 'OrbitronS';
+  src: url('../assets/fonts/orbitron-light.otf') format('opentype');
 }
 
 body {
@@ -100,7 +105,7 @@ body {
   color: #09D89E;
   text-align: center;
   font-weight: bold;
-  font-family: 'Orbitron';
+  font-family: 'OrbitronS';
 }
 #fake-logs-container{
   background: #2e2e2e;

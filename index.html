@@ -1,4 +1,4 @@
-<!-- Code Editor V5.8 -->
+<!-- KingCode V6.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>KingCode – Online HTML, CSS & JavaScript Editor v5.8</title>
+  <title>KingCode v6.0– Online HTML, CSS & JavaScript Editor</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <meta name="description" content="KingCode by Ebuka Francis is a fast and free online code editor for HTML, CSS and JavaScript. Write, run and test code directly in your browser. Version 5.8">
+  <meta name="description" content="KingCode by Ebuka Francis is a fast and free online code editor for HTML, CSS and JavaScript. Write, run and test code directly in your browser. Version 6.0">
   
   <meta name="keywords" content="KingCode, king code, kingcode, king ebuka code editor, ebuka francis code editor, king ebuka online code editor, code editor by king ebuka, ebuka francis online editor, online code editor, best online code editor, free code editor online, html css javascript editor, live code editor, web based code editor, browser code editor, frontend code editor, coding playground online, developer tools, king Ebuka, Ebuka Francis">
 
@@ -17,7 +17,7 @@
   <meta name="copyright" content="© 2026 King Ebuka">
 
   <!-- Open Graph -->
-  <meta property="og:title" content=" KingCode v5.8">
+  <meta property="og:title" content=" KingCode v6.0">
   <meta property="og:description" content="Online HTML, CSS & JavaScript code editor created by King Ebuka (Ebuka Francis).">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kingebukajs.github.io/KingCode/">
@@ -70,91 +70,24 @@
   <div id="main">
     <div id="header">
   <div id="first-line">
-   <a href="https://kingebukajs.github.io/KingCode/index.html"><img src='assets/images/logo.png' alt='logo' height="50">
+   <a href="index.html" title="KingCode"><img src='assets/images/logo.png' alt='KingCode logo' height="50">
    <h2>KingCode</h2></a>
      <button id="menu-btn" onclick="toast('Coming soon...')">&#8942;</button>
    </div>
    <div id="second-line">
     <ul id="tabs">
       
-     <li><button class="buttons" id="hbtn" onclick="show('htmlinp');"><i class="fab fa-html5" style="color: #E34C26;"></i>
+     <li><button title="Edit html" class="buttons" id="hbtn" onclick="show('htmlinp');"><i class="fab fa-html5" style="color: #E34C26;"></i>
 HTML</button></li>
      
-     <li><button class="buttons" id="cbtn" onclick="show('cssinp')"><i class="fab fa-css3" style="color: #4D7CF3;"></i>
+     <li><button title="Edit css" class="buttons" id="cbtn" onclick="show('cssinp')"><i class="fab fa-css3" style="color: #4D7CF3;"></i>
 CSS</button></li>
      
-     <li><button class="buttons" id="jbtn" onclick="show('jsinp')"><i class="fab fa-js" style="color: #F7DF1E;"></i>
+     <li><button title="Edit js" class="buttons" id="jbtn" onclick="show('jsinp')"><i class="fab fa-js" style="color: #F7DF1E;"></i>
 JS</button></li>
      
-   <li style="float:right;"><select id="hselect" style="float:right;" class="selectss" onchange="snip('html')">
-  <option value="">-- tags ---</option>
-  <option value="<video controls></video>">video</option>
-  <option value="<fieldset></fieldset>">fieldset</option>
-  <option value="<a href=''></a>">a</option>
-  <option value="<main></main>">main</option>
-  <option value="<output></output>">output</option>
-  <option value="<h2></h2>">h2</option>
-  <option value="<script></script>">script</option>
-  <option value="<section></section>">section</option>
-  <option value="<body></body>">body</option>
-  <option value="<canvas></canvas>">canvas</option>
-  <option value="<title></title>">title</option>
-  <option value="<br>">br</option>
-  <option value="<p></p>">p</option>
-  <option value="<label></label>">label</option>
-  <option value="<img src='' alt=''>">img</option>
-  <option value="<h4></h4>">h4</option>
-  <option value="<strong></strong>">strong</option>
-  <option value="<footer></footer>">footer</option>
-  <option value="<html></html>">html</option>
-  <option value="<datalist></datalist>">datalist</option>
-  <option value="<input>">input</option>
-  <option value="<thead></thead>">thead</option>
-  <option value="<button></button>">button</option>
-  <option value="<h1></h1>">h1</option>
-  <option value="<summary></summary>">summary</option>
-  <option value="<style></style>">style</option>
-  <option value="<article></article>">article</option>
-  <option value="<u></u>">u</option>
-  <option value="<link rel='stylesheet' href=''>">link</option>
-  <option value="<select></select>">select</option>
-  <option value="<meta charset='utf-8'>">meta</option>
-  <option value="<output></output>">output</option>
-  <option value="<h3></h3>">h3</option>
-  <option value="<span></span>">span</option>
-  <option value="<ul></ul>">ul</option>
-  <option value="<tr></tr>">tr</option>
-  <option value="<table></table>">table</option>
-  <option value="<b></b>">b</option>
-  <option value="<hr>">hr</option>
-  <option value="<aside></aside>">aside</option>
-  <option value="<object data=''></object>">object</option>
-  <option value="<fieldset></fieldset>">fieldset</option>
-  <option value="<td></td>">td</option>
-  <option value="<section></section>">section</option>
-  <option value="<h5></h5>">h5</option>
-  <option value="<th></th>">th</option>
-  <option value="<em></em>">em</option>
-  <option value="<header></header>">header</option>
-  <option value="<div></div>">div</option>
-  <option value="<ol></ol>">ol</option>
-  <option value="<tfoot></tfoot>">tfoot</option>
-  <option value="<nav></nav>">nav</option>
-  <option value="<iframe src=''></iframe>">iframe</option>
-  <option value="<tbody></tbody>">tbody</option>
-  <option value="<i></i>">i</option>
-  <option value="<audio controls></audio>">audio</option>
-  <option value="<colgroup></colgroup>">colgroup</option>
-  <option value="<col>">col</option>
-  <option value="<dialog></dialog>">dialog</option>
-  <option value="<h6></h6>">h6</option>
-  <option value="<strong></strong>">strong</option>
-  <option value="<!DOCTYPE html>">!DOCTYPE</option>
-  <option value="<caption></caption>">caption</option>
-  <option value="<track kind='subtitles'>">track</option>
-  <option value="<legend></legend>">legend</option>
-</select>
-    <select id="cselect" class="selectss" onchange="snip('css')">
+   <li style="float:right;">
+    <select id="cselect" style="outline: none;"class="selectss" onchange="snip('css')">
   <option value="">-- properties ---</option>
   <option value="accent-color">accent-color</option>
   <option value="align-content">align-content</option>
@@ -566,7 +499,7 @@ JS</button></li>
  </div>
   <iframe id="output" name="KingCode" title="KingCode Preview" src="" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="accelerometer *; bluetooth *; camera *; clipboard-read *; clipboard-write *; display-capture *; encrypted-media *; geolocation *; gyroscope *; language-detector *; language-model *; local-network-access *; microphone *; midi *; rewriter *; serial *; summarizer *; translator *; web-share *; writer *; xr-spatial-tracking *" scrolling="auto" allowTransparency="true" allowpaymentrequest="true" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer"></iframe>
   
-  <textarea id="html" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('#cselect').style.display='none'; $('#hselect').style.display='block';" rows="8" cols="40"></textarea>
+  <textarea id="html" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('#cselect').style.display='none';" rows="8" cols="40"></textarea>
   
   <textarea id="css" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('.selectss').style.display='none'; $('#cselect').style.display='block';" rows="8" cols="40"></textarea>
   
