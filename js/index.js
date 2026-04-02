@@ -1,5 +1,5 @@
-/*KingCode v6.0*/
-console.log("##KingCode v6.0##");
+/*KingCode v6.2*/
+console.log("##KingCode v6.2##");
 console.log("👑 King Ebuka 👑");
 
 /**Debounce function**/
@@ -129,11 +129,11 @@ function showName() {
     let log4 = document.getElementById('log4');
     let log5 = document.getElementById('log5');
     let log6 = document.getElementById('log6');
-    let message1 = ">_Booting_King_Ebuka_Code_Editor...";
+    let message1 = ">_Booting_KingCode_Editor...";
     let message2 = ">_Checking_system_environment...";
     let message3 = ">_Loading_editor_engine...";
     let message4 = ">_Loading_developer_console...";
-    let message5 = ">_Initializing_IDE_modules...";
+    let message5 = ">_Initializing_autocomplete...";
     let message6 = ">_Editor_ready._Open_KingCode!";
     let i1 = 0;
     let i2 = 0;
@@ -286,7 +286,6 @@ function loadCode() {
   }
 }
 
-
 /**assign variables**/
     let html = document.getElementById("html");
     let css = document.getElementById("css");
@@ -298,8 +297,20 @@ function loadCode() {
     let opstyle = document.createElement("style");
     output.contentDocument.head.appendChild(opstyle);
     let csnippets = document.getElementById("cselect");
+    let inputarea = document.getElementById("inputarea");
+    let fsp = document.getElementById('toggle1');
+    let fse = document.getElementById('toggle2');
+    let lsls = "layout" in localStorage;
+    //swaped layout
+    let slot = "calc(80px + 47vh)";
+    let slit = "82px";
+    
+    //normal layout
+    let nlot = "82px";
+    let nlit = "calc(80px + 47vh)";
+    
 
-/**update code**/
+/**update preview**/
 function updatePreview() {
   
     const doc = output.contentDocument || output.contentWindow.document;
@@ -323,24 +334,539 @@ function updatePreview() {
       output.contentWindow.console.error(`${err}`);
       scrollBottom();
     };
-    
+
     localStorage.setItem("html", html.value);
     localStorage.setItem("css", css.value);
     localStorage.setItem("js", js.value);
 };
 
-    const debouncedUpdate = debounce(updatePreview, 500);
-    
-    inputs.forEach(input => {
+const debouncedUpdate = debounce(updatePreview, 500);
+
+inputs.forEach(input => {
   input.addEventListener('input', debouncedUpdate);
 });
 
+
 /*auto complete*/
+/**css**/
+
+let autoCompCss = [
+{id:"accent-color", fullCode:"accent-color: ;"},
+{id:"acco", fullCode:"accent-color: ;"},
+{id:"align-content", fullCode:"align-content: ;"},
+{id:"alco", fullCode:"align-content: ;"},
+{id:"align-items", fullCode:"align-items: ;"},
+{id:"alit", fullCode:"align-items: ;"},
+{id:"align-self", fullCode:"align-self: ;"},
+{id:"alse", fullCode:"align-self: ;"},
+{id:"alignment-baseline", fullCode:"alignment-baseline: ;"},
+{id:"all", fullCode:"all: ;"},
+{id:"animation", fullCode:"animation: ;"},
+{id:"ani", fullCode:"animation: ;"},
+{id:"animation-composition", fullCode:"animation-composition: ;"},
+{id:"animation-delay", fullCode:"animation-delay: ;"},
+{id:"animation-direction", fullCode:"animation-direction: ;"},
+{id:"animation-duration", fullCode:"animation-duration: ;"},
+{id:"animation-fill-mode", fullCode:"animation-fill-mode: ;"},
+{id:"animation-iteration-count", fullCode:"animation-iteration-count: ;"},
+{id:"animation-name", fullCode:"animation-name: ;"},
+{id:"animation-play-state", fullCode:"animation-play-state: ;"},
+{id:"animation-range", fullCode:"animation-range: ;"},
+{id:"animation-range-end", fullCode:"animation-range-end: ;"},
+{id:"animation-range-start", fullCode:"animation-range-start: ;"},
+{id:"animation-timeline", fullCode:"animation-timeline: ;"},
+{id:"animation-timing-function", fullCode:"animation-timing-function: ;"},
+{id:"appearance", fullCode:"appearance: ;"},
+{id:"aspect-ratio", fullCode:"aspect-ratio: ;"},
+{id:"backdrop-filter", fullCode:"backdrop-filter: ;"},
+{id:"backface-visibility", fullCode:"backface-visibility: ;"},
+{id:"background", fullCode:"background: ;"},
+{id:"bg", fullCode:"background: ;"},
+{id:"background-attachment", fullCode:"background-attachment: ;"},
+{id:"background-blend-mode", fullCode:"background-blend-mode: ;"},
+{id:"background-clip", fullCode:"background-clip: ;"},
+{id:"background-color", fullCode:"background-color: ;"},
+{id:"bgco", fullCode:"background-color: ;"},
+{id:"background-image", fullCode:"background-image: ;"},
+{id:"bgim", fullCode:"background-image: ;"},
+{id:"background-origin", fullCode:"background-origin: ;"},
+{id:"background-position", fullCode:"background-position: ;"},
+{id:"bgpo", fullCode:"background-position: ;"},
+{id:"background-position-x", fullCode:"background-position-x: ;"},
+{id:"background-position-y", fullCode:"background-position-y: ;"},
+{id:"background-repeat", fullCode:"background-repeat: ;"},
+{id:"background-size", fullCode:"background-size: ;"},
+{id:"block-size", fullCode:"block-size: ;"},
+{id:"border", fullCode:"border: ;"},
+{id:"bo", fullCode:"border: ;"},
+{id:"border-block", fullCode:"border-block: ;"},
+{id:"border-block-color", fullCode:"border-block-color: ;"},
+{id:"border-block-end", fullCode:"border-block-end: ;"},
+{id:"border-block-end-color", fullCode:"border-block-end-color: ;"},
+{id:"border-block-end-style", fullCode:"border-block-end-style: ;"},
+{id:"border-block-end-width", fullCode:"border-block-end-width: ;"},
+{id:"border-block-start", fullCode:"border-block-start: ;"},
+{id:"border-block-start-color", fullCode:"border-block-start-color: ;"},
+{id:"border-block-start-style", fullCode:"border-block-start-style: ;"},
+{id:"border-block-start-width", fullCode:"border-block-start-width: ;"},
+{id:"border-block-style", fullCode:"border-block-style: ;"},
+{id:"border-block-width", fullCode:"border-block-width: ;"},
+{id:"border-bottom", fullCode:"border-bottom: ;"},
+{id:"bobot", fullCode:"border-bottom: ;"},
+{id:"border-bottom-color", fullCode:"border-bottom-color: ;"},
+{id:"border-bottom-left-radius", fullCode:"border-bottom-left-radius: ;"},
+{id:"border-bottom-right-radius", fullCode:"border-bottom-right-radius: ;"},
+{id:"border-bottom-style", fullCode:"border-bottom-style: ;"},
+{id:"border-bottom-width", fullCode:"border-bottom-width: ;"},
+{id:"border-collapse", fullCode:"border-collapse: ;"},
+{id:"border-color", fullCode:"border-color: ;"},
+{id:"boco", fullCode:"border-color: ;"},
+{id:"border-end-end-radius", fullCode:"border-end-end-radius: ;"},
+{id:"co", fullCode:"color: ;"},
+{id:"border-end-start-radius", fullCode:"border-end-start-radius: ;"},
+{id:"border-image", fullCode:"border-image: ;"},
+{id:"border-image-outset", fullCode:"border-image-outset: ;"},
+{id:"border-image-repeat", fullCode:"border-image-repeat: ;"},
+{id:"border-image-slice", fullCode:"border-image-slice: ;"},
+{id:"border-image-source", fullCode:"border-image-source: ;"},
+{id:"border-image-width", fullCode:"border-image-width: ;"},
+{id:"border-inline", fullCode:"border-inline: ;"},
+{id:"border-inline-color", fullCode:"border-inline-color: ;"},
+{id:"border-inline-end", fullCode:"border-inline-end: ;"},
+{id:"border-inline-end-color", fullCode:"border-inline-end-color: ;"},
+{id:"border-inline-end-style", fullCode:"border-inline-end-style: ;"},
+{id:"border-inline-end-width", fullCode:"border-inline-end-width: ;"},
+{id:"border-inline-start", fullCode:"border-inline-start: ;"},
+{id:"border-inline-start-color", fullCode:"border-inline-start-color: ;"},
+{id:"border-inline-start-style", fullCode:"border-inline-start-style: ;"},
+{id:"border-inline-start-width", fullCode:"border-inline-start-width: ;"},
+{id:"border-inline-style", fullCode:"border-inline-style: ;"},
+{id:"border-inline-width", fullCode:"border-inline-width: ;"},
+{id:"border-left", fullCode:"border-left: ;"},
+{id:"border-left-color", fullCode:"border-left-color: ;"},
+{id:"border-left-style", fullCode:"border-left-style: ;"},
+{id:"border-left-width", fullCode:"border-left-width: ;"},
+{id:"border-radius", fullCode:"border-radius: ;"},
+{id:"bora", fullCode:"border-radius: ;"},
+{id:"border-right", fullCode:"border-right: ;"},
+{id:"border-right-color", fullCode:"border-right-color: ;"},
+{id:"border-right-style", fullCode:"border-right-style: ;"},
+{id:"border-right-width", fullCode:"border-right-width: ;"},
+{id:"border-spacing", fullCode:"border-spacing: ;"},
+{id:"border-style", fullCode:"border-style: ;"},
+{id:"border-top", fullCode:"border-top: ;"},
+{id:"bot", fullCode:"border-top: ;"},
+{id:"border-top-color", fullCode:"border-top-color: ;"},
+{id:"border-top-left-radius", fullCode:"border-top-left-radius: ;"},
+{id:"border-top-right-radius", fullCode:"border-top-right-radius: ;"},
+{id:"border-top-style", fullCode:"border-top-style: ;"},
+{id:"border-top-width", fullCode:"border-top-width: ;"},
+{id:"border-width", fullCode:"border-width: ;"},
+{id:"box-decoration-break", fullCode:"box-decoration-break: ;"},
+{id:"box-shadow", fullCode:"box-shadow: ;"},
+{id:"bxsh", fullCode:"box-shadow: ;"},
+{id:"box-sizing", fullCode:"box-sizing: ;"},
+{id:"break-after", fullCode:"break-after: ;"},
+{id:"break-before", fullCode:"break-before: ;"},
+{id:"break-inside", fullCode:"break-inside: ;"},
+{id:"caption-side", fullCode:"caption-side: ;"},
+{id:"caret-color", fullCode:"caret-color: ;"},
+{id:"caret-shape", fullCode:"caret-shape: ;"},
+{id:"caret-animation", fullCode:"caret-animation: ;"},
+{id:"clear", fullCode:"clear: ;"},
+{id:"clip", fullCode:"clip: ;"},
+{id:"clip-path", fullCode:"clip-path: ;"},
+{id:"color", fullCode:"color: ;"},
+{id:"color-adjust", fullCode:"color-adjust: ;"},
+{id:"color-scheme", fullCode:"color-scheme: ;"},
+{id:"column-count", fullCode:"column-count: ;"},
+{id:"column-fill", fullCode:"column-fill: ;"},
+{id:"column-gap", fullCode:"column-gap: ;"},
+{id:"column-rule", fullCode:"column-rule: ;"},
+{id:"column-rule-color", fullCode:"column-rule-color: ;"},
+{id:"column-rule-style", fullCode:"column-rule-style: ;"},
+{id:"column-rule-width", fullCode:"column-rule-width: ;"},
+{id:"column-span", fullCode:"column-span: ;"},
+{id:"column-width", fullCode:"column-width: ;"},
+{id:"columns", fullCode:"columns: ;"},
+{id:"contain", fullCode:"contain: ;"},
+{id:"contain-intrinsic-size", fullCode:"contain-intrinsic-size: ;"},
+{id:"contain-intrinsic-block-size", fullCode:"contain-intrinsic-block-size: ;"},
+{id:"contain-intrinsic-height", fullCode:"contain-intrinsic-height: ;"},
+{id:"contain-intrinsic-inline-size", fullCode:"contain-intrinsic-inline-size: ;"},
+{id:"contain-intrinsic-width", fullCode:"contain-intrinsic-width: ;"},
+{id:"content", fullCode:"content: ;"},
+{id:"content-visibility", fullCode:"content-visibility: ;"},
+{id:"corner-shape", fullCode:"corner-shape: ;"},
+{id:"counter-increment", fullCode:"counter-increment: ;"},
+{id:"counter-reset", fullCode:"counter-reset: ;"},
+{id:"counter-set", fullCode:"counter-set: ;"},
+{id:"cue", fullCode:"cue: ;"},
+{id:"cursor", fullCode:"cursor: ;"},
+{id:"display", fullCode:"display: ;"},
+{id:"dis", fullCode:"display: ;"},
+{id:"empty-cells", fullCode:"empty-cells: ;"},
+{id:"filter", fullCode:"filter: ;"},
+{id:"flex", fullCode:"flex: ;"},
+{id:"flex-basis", fullCode:"flex-basis: ;"},
+{id:"flex-direction", fullCode:"flex-direction: ;"},
+{id:"flexdir", fullCode:"flex-direction: ;"},
+{id:"flex-flow", fullCode:"flex-flow: ;"},
+{id:"flex-grow", fullCode:"flex-grow: ;"},
+{id:"dir", fullCode:"direction: ;"},
+{id:"flex-shrink", fullCode:"flex-shrink: ;"},
+{id:"flex-wrap", fullCode:"flex-wrap: ;"},
+{id:"float", fullCode:"float: ;"},
+{id:"font", fullCode:"font: ;"},
+{id:"font-display", fullCode:"font-display: ;"},
+{id:"font-family", fullCode:"font-family: ;"},
+{id:"fofam", fullCode:"font-family: ;"},
+{id:"font-feature-settings", fullCode:"font-feature-settings: ;"},
+{id:"font-kerning", fullCode:"font-kerning: ;"},
+{id:"font-optical-sizing", fullCode:"font-optical-sizing: ;"},
+{id:"font-palette", fullCode:"font-palette: ;"},
+{id:"font-size", fullCode:"font-size: ;"},
+{id:"fos", fullCode:"font-size: ;"},
+{id:"font-size-adjust", fullCode:"font-size-adjust: ;"},
+{id:"font-stretch", fullCode:"font-stretch: ;"},
+{id:"font-style", fullCode:"font-style: ;"},
+{id:"font-synthesis", fullCode:"font-synthesis: ;"},
+{id:"font-synthesis-weight", fullCode:"font-synthesis-weight: ;"},
+{id:"font-synthesis-style", fullCode:"font-synthesis-style: ;"},
+{id:"font-synthesis-small-caps", fullCode:"font-synthesis-small-caps: ;"},
+{id:"font-variant", fullCode:"font-variant: ;"},
+{id:"font-variant-alternates", fullCode:"font-variant-alternates: ;"},
+{id:"font-variant-caps", fullCode:"font-variant-caps: ;"},
+{id:"font-variant-east-asian", fullCode:"font-variant-east-asian: ;"},
+{id:"font-variant-ligatures", fullCode:"font-variant-ligatures: ;"},
+{id:"font-variant-numeric", fullCode:"font-variant-numeric: ;"},
+{id:"font-variation-settings", fullCode:"font-variation-settings: ;"},
+{id:"font-weight", fullCode:"font-weight: ;"},
+{id:"forced-color-adjust", fullCode:"forced-color-adjust: ;"},
+{id:"gap", fullCode:"gap: ;"},
+{id:"grid", fullCode:"grid: ;"},
+{id:"grid-area", fullCode:"grid-area: ;"},
+{id:"grid-auto-columns", fullCode:"grid-auto-columns: ;"},
+{id:"grid-auto-flow", fullCode:"grid-auto-flow: ;"},
+{id:"grid-auto-rows", fullCode:"grid-auto-rows: ;"},
+{id:"grid-column", fullCode:"grid-column: ;"},
+{id:"grid-column-end", fullCode:"grid-column-end: ;"},
+{id:"grid-column-start", fullCode:"grid-column-start: ;"},
+{id:"grid-row", fullCode:"grid-row: ;"},
+{id:"grid-row-end", fullCode:"grid-row-end: ;"},
+{id:"grid-row-start", fullCode:"grid-row-start: ;"},
+{id:"grid-template", fullCode:"grid-template: ;"},
+{id:"grid-template-areas", fullCode:"grid-template-areas: ;"},
+{id:"grid-template-columns", fullCode:"grid-template-columns: ;"},
+{id:"grid-template-rows", fullCode:"grid-template-rows: ;"},
+{id:"hanging-punctuation", fullCode:"hanging-punctuation: ;"},
+{id:"height", fullCode:"height: ;"},
+{id:"h", fullCode:"height: ;"},
+{id:"hyphenate-character", fullCode:"hyphenate-character: ;"},
+{id:"hyphenate-limit-chars", fullCode:"hyphenate-limit-chars: ;"},
+{id:"hyphenate-limit-last", fullCode:"hyphenate-limit-last: ;"},
+{id:"hyphenate-limit-lines", fullCode:"hyphenate-limit-lines: ;"},
+{id:"hyphenate-limit-zone", fullCode:"hyphenate-limit-zone: ;"},
+{id:"hyphens", fullCode:"hyphens: ;"},
+{id:"image-orientation", fullCode:"image-orientation: ;"},
+{id:"image-rendering", fullCode:"image-rendering: ;"},
+{id:"image-resolution", fullCode:"image-resolution: ;"},
+{id:"initial-letter", fullCode:"initial-letter: ;"},
+{id:"inline-size", fullCode:"inline-size: ;"},
+{id:"inset", fullCode:"inset: ;"},
+{id:"inset-block", fullCode:"inset-block: ;"},
+{id:"inset-block-end", fullCode:"inset-block-end: ;"},
+{id:"inset-block-start", fullCode:"inset-block-start: ;"},
+{id:"inset-inline", fullCode:"inset-inline: ;"},
+{id:"inset-inline-end", fullCode:"inset-inline-end: ;"},
+{id:"inset-inline-start", fullCode:"inset-inline-start: ;"},
+{id:"isolation", fullCode:"isolation: ;"},
+{id:"justify-content", fullCode:"justify-content: ;"},
+{id:"juscon", fullCode:"justify-content: ;"},
+{id:"justify-items", fullCode:"justify-items: ;"},
+{id:"justify-self", fullCode:"justify-self: ;"},
+{id:"letter-spacing", fullCode:"letter-spacing: ;"},
+{id:"lighting-color", fullCode:"lighting-color: ;"},
+{id:"line-break", fullCode:"line-break: ;"},
+{id:"line-clamp", fullCode:"line-clamp: ;"},
+{id:"line-height", fullCode:"line-height: ;"},
+{id:"line-height-step", fullCode:"line-height-step: ;"},
+{id:"list-style", fullCode:"list-style: ;"},
+{id:"list-style-image", fullCode:"list-style-image: ;"},
+{id:"list-style-position", fullCode:"list-style-position: ;"},
+{id:"list-style-type", fullCode:"list-style-type: ;"},
+{id:"margin", fullCode:"margin: ;"},
+{id:"ma", fullCode:"margin: ;"},
+{id:"margin-block", fullCode:"margin-block: ;"},
+{id:"margin-block-end", fullCode:"margin-block-end: ;"},
+{id:"margin-block-start", fullCode:"margin-block-start: ;"},
+{id:"margin-bottom", fullCode:"margin-bottom: ;"},
+{id:"mabo", fullCode:"margin-bottom: ;"},
+{id:"margin-inline", fullCode:"margin-inline: ;"},
+{id:"margin-inline-end", fullCode:"margin-inline-end: ;"},
+{id:"margin-inline-start", fullCode:"margin-inline-start: ;"},
+{id:"margin-left", fullCode:"margin-left: ;"},
+{id:"male", fullCode:"margin-left: ;"},
+{id:"margin-right", fullCode:"margin-right: ;"},
+{id:"mari", fullCode:"margin-right: ;"},
+{id:"margin-top", fullCode:"margin-top: ;"},
+{id:"mato", fullCode:"margin-top: ;"},
+{id:"marker", fullCode:"marker: ;"},
+{id:"marker-end", fullCode:"marker-end: ;"},
+{id:"marker-mid", fullCode:"marker-mid: ;"},
+{id:"marker-start", fullCode:"marker-start: ;"},
+{id:"mask", fullCode:"mask: ;"},
+{id:"mask-border", fullCode:"mask-border: ;"},
+{id:"mask-border-mode", fullCode:"mask-border-mode: ;"},
+{id:"mask-border-outset", fullCode:"mask-border-outset: ;"},
+{id:"mask-border-repeat", fullCode:"mask-border-repeat: ;"},
+{id:"mask-border-slice", fullCode:"mask-border-slice: ;"},
+{id:"mask-border-source", fullCode:"mask-border-source: ;"},
+{id:"mask-border-width", fullCode:"mask-border-width: ;"},
+{id:"mask-clip", fullCode:"mask-clip: ;"},
+{id:"mask-composite", fullCode:"mask-composite: ;"},
+{id:"mask-image", fullCode:"mask-image: ;"},
+{id:"mask-mode", fullCode:"mask-mode: ;"},
+{id:"mask-origin", fullCode:"mask-origin: ;"},
+{id:"mask-position", fullCode:"mask-position: ;"},
+{id:"mask-repeat", fullCode:"mask-repeat: ;"},
+{id:"mask-size", fullCode:"mask-size: ;"},
+{id:"mask-type", fullCode:"mask-type: ;"},
+{id:"max-block-size", fullCode:"max-block-size: ;"},
+{id:"max-height", fullCode:"max-height: ;"},
+{id:"maxh", fullCode:"max-height: ;"},
+{id:"max-inline-size", fullCode:"max-inline-size: ;"},
+{id:"max-width", fullCode:"max-width: ;"},
+{id:"maxw", fullCode:"max-width: ;"},
+{id:"min-block-size", fullCode:"min-block-size: ;"},
+{id:"min-height", fullCode:"min-height: ;"},
+{id:"minh", fullCode:"min-height: ;"},
+{id:"min-inline-size", fullCode:"min-inline-size: ;"},
+{id:"min-width", fullCode:"min-width: ;"},
+{id:"minw", fullCode:"min-width: ;"},
+{id:"mix-blend-mode", fullCode:"mix-blend-mode: ;"},
+{id:"object-fit", fullCode:"object-fit: ;"},
+{id:"object-position", fullCode:"object-position: ;"},
+{id:"offset", fullCode:"offset: ;"},
+{id:"offset-anchor", fullCode:"offset-anchor: ;"},
+{id:"offset-distance", fullCode:"offset-distance: ;"},
+{id:"offset-path", fullCode:"offset-path: ;"},
+{id:"offset-position", fullCode:"offset-position: ;"},
+{id:"offset-rotate", fullCode:"offset-rotate: ;"},
+{id:"opacity", fullCode:"opacity: ;"},
+{id:"order", fullCode:"order: ;"},
+{id:"orphans", fullCode:"orphans: ;"},
+{id:"outline", fullCode:"outline: ;"},
+{id:"outline-color", fullCode:"outline-color: ;"},
+{id:"outline-offset", fullCode:"outline-offset: ;"},
+{id:"outline-style", fullCode:"outline-style: ;"},
+{id:"outline-width", fullCode:"outline-width: ;"},
+{id:"overflow", fullCode:"overflow: ;"},
+{id:"overflow-anchor", fullCode:"overflow-anchor: ;"},
+{id:"overflow-block", fullCode:"overflow-block: ;"},
+{id:"overflow-clip-margin", fullCode:"overflow-clip-margin: ;"},
+{id:"overflow-inline", fullCode:"overflow-inline: ;"},
+{id:"overflow-wrap", fullCode:"overflow-wrap: ;"},
+{id:"overflow-wrap-anywhere", fullCode:"overflow-wrap: anywhere;"},
+{id:"overflow-x", fullCode:"overflow-x: ;"},
+{id:"overflow-y", fullCode:"overflow-y: ;"},
+{id:"overscroll-behavior", fullCode:"overscroll-behavior: ;"},
+{id:"overscroll-behavior-block", fullCode:"overscroll-behavior-block: ;"},
+{id:"overscroll-behavior-inline", fullCode:"overscroll-behavior-inline: ;"},
+{id:"overscroll-behavior-x", fullCode:"overscroll-behavior-x: ;"},
+{id:"overscroll-behavior-y", fullCode:"overscroll-behavior-y: ;"},
+{id:"padding", fullCode:"padding: ;"},
+{id:"pa", fullCode:"padding: ;"},
+{id:"padding-block", fullCode:"padding-block: ;"},
+{id:"padding-block-end", fullCode:"padding-block-end: ;"},
+{id:"padding-block-start", fullCode:"padding-block-start: ;"},
+{id:"padding-bottom", fullCode:"padding-bottom: ;"},
+{id:"pabo", fullCode:"padding-bottom: ;"},
+{id:"padding-inline", fullCode:"padding-inline: ;"},
+{id:"padding-inline-end", fullCode:"padding-inline-end: ;"},
+{id:"padding-inline-start", fullCode:"padding-inline-start: ;"},
+{id:"padding-left", fullCode:"padding-left: ;"},
+{id:"pale", fullCode:"padding-left: ;"},
+{id:"padding-right", fullCode:"padding-right: ;"},
+{id:"left", fullCode:"left: ;"},
+{id:"le", fullCode:"left: ;"},
+{id:"pari", fullCode:"padding-right: ;"},
+{id:"padding-top", fullCode:"padding-top: ;"},
+{id:"pato", fullCode:"padding-top: ;"},
+{id:"page-break-after", fullCode:"page-break-after: ;"},
+{id:"page-break-before", fullCode:"page-break-before: ;"},
+{id:"page-break-inside", fullCode:"page-break-inside: ;"},
+{id:"paint-order", fullCode:"paint-order: ;"},
+{id:"perspective", fullCode:"perspective: ;"},
+{id:"perspective-origin", fullCode:"perspective-origin: ;"},
+{id:"bo", fullCode:"bottom: ;"},
+{id:"place-content", fullCode:"place-content: ;"},
+{id:"place-items", fullCode:"place-items: ;"},
+{id:"place-self", fullCode:"place-self: ;"},
+{id:"pointer-events", fullCode:"pointer-events: ;"},
+{id:"position", fullCode:"position: ;"},
+{id:"pos", fullCode:"position: ;"},
+{id:"quotes", fullCode:"quotes: ;"},
+{id:"resize", fullCode:"resize: ;"},
+{id:"right", fullCode:"right: ;"},
+{id:"ri", fullCode:"right: ;"},
+{id:"rotate", fullCode:"rotate: ;"},
+{id:"row-gap", fullCode:"row-gap: ;"},
+{id:"ruby-align", fullCode:"ruby-align: ;"},
+{id:"ruby-position", fullCode:"ruby-position: ;"},
+{id:"scale", fullCode:"scale: ;"},
+{id:"scroll-behavior", fullCode:"scroll-behavior: ;"},
+{id:"scroll-margin", fullCode:"scroll-margin: ;"},
+{id:"scroll-margin-block", fullCode:"scroll-margin-block: ;"},
+{id:"scroll-margin-block-end", fullCode:"scroll-margin-block-end: ;"},
+{id:"scroll-margin-block-start", fullCode:"scroll-margin-block-start: ;"},
+{id:"scroll-margin-bottom", fullCode:"scroll-margin-bottom: ;"},
+{id:"scroll-margin-inline", fullCode:"scroll-margin-inline: ;"},
+{id:"scroll-margin-inline-end", fullCode:"scroll-margin-inline-end: ;"},
+{id:"scroll-margin-inline-start", fullCode:"scroll-margin-inline-start: ;"},
+{id:"scroll-margin-left", fullCode:"scroll-margin-left: ;"},
+{id:"scroll-margin-right", fullCode:"scroll-margin-right: ;"},
+{id:"scroll-margin-top", fullCode:"scroll-margin-top: ;"},
+{id:"scroll-padding", fullCode:"scroll-padding: ;"},
+{id:"scroll-padding-block", fullCode:"scroll-padding-block: ;"},
+{id:"scroll-padding-block-end", fullCode:"scroll-padding-block-end: ;"},
+{id:"scroll-padding-block-start", fullCode:"scroll-padding-block-start: ;"},
+{id:"scroll-padding-bottom", fullCode:"scroll-padding-bottom: ;"},
+{id:"scroll-padding-inline", fullCode:"scroll-padding-inline: ;"},
+{id:"scroll-padding-inline-end", fullCode:"scroll-padding-inline-end: ;"},
+{id:"scroll-padding-inline-start", fullCode:"scroll-padding-inline-start: ;"},
+{id:"scroll-padding-left", fullCode:"scroll-padding-left: ;"},
+{id:"scroll-padding-right", fullCode:"scroll-padding-right: ;"},
+{id:"scroll-padding-top", fullCode:"scroll-padding-top: ;"},
+{id:"scroll-snap-align", fullCode:"scroll-snap-align: ;"},
+{id:"scroll-snap-stop", fullCode:"scroll-snap-stop: ;"},
+{id:"scroll-snap-type", fullCode:"scroll-snap-type: ;"},
+{id:"scrollbar-color", fullCode:"scrollbar-color: ;"},
+{id:"scrollbar-gutter", fullCode:"scrollbar-gutter: ;"},
+{id:"scrollbar-width", fullCode:"scrollbar-width: ;"},
+{id:"scroll-timeline", fullCode:"scroll-timeline: ;"},
+{id:"scroll-timeline-name", fullCode:"scroll-timeline-name: ;"},
+{id:"scroll-timeline-axis", fullCode:"scroll-timeline-axis: ;"},
+{id:"shape-image-threshold", fullCode:"shape-image-threshold: ;"},
+{id:"shape-margin", fullCode:"shape-margin: ;"},
+{id:"shape-outside", fullCode:"shape-outside: ;"},
+{id:"tab-size", fullCode:"tab-size: ;"},
+{id:"table-layout", fullCode:"table-layout: ;"},
+{id:"text-align", fullCode:"text-align: ;"},
+{id:"text-align-last", fullCode:"text-align-last: ;"},
+{id:"text-combine-upright", fullCode:"text-combine-upright: ;"},
+{id:"text-decoration", fullCode:"text-decoration: ;"},
+{id:"text-decoration-color", fullCode:"text-decoration-color: ;"},
+{id:"text-decoration-line", fullCode:"text-decoration-line: ;"},
+{id:"text-decoration-skip", fullCode:"text-decoration-skip: ;"},
+{id:"text-decoration-skip-ink", fullCode:"text-decoration-skip-ink: ;"},
+{id:"text-decoration-style", fullCode:"text-decoration-style: ;"},
+{id:"text-emphasis", fullCode:"text-emphasis: ;"},
+{id:"text-emphasis-color", fullCode:"text-emphasis-color: ;"},
+{id:"text-emphasis-position", fullCode:"text-emphasis-position: ;"},
+{id:"text-emphasis-style", fullCode:"text-emphasis-style: ;"},
+{id:"text-indent", fullCode:"text-indent: ;"},
+{id:"text-justify", fullCode:"text-justify: ;"},
+{id:"text-orientation", fullCode:"text-orientation: ;"},
+{id:"text-overflow", fullCode:"text-overflow: ;"},
+{id:"text-rendering", fullCode:"text-rendering: ;"},
+{id:"text-shadow", fullCode:"text-shadow: ;"},
+{id:"text-size-adjust", fullCode:"text-size-adjust: ;"},
+{id:"text-spacing", fullCode:"text-spacing: ;"},
+{id:"text-transform", fullCode:"text-transform: ;"},
+{id:"text-underline-offset", fullCode:"text-underline-offset: ;"},
+{id:"text-underline-position", fullCode:"text-underline-position: ;"},
+{id:"text-wrap", fullCode:"text-wrap: ;"},
+{id:"text-wrap-mode", fullCode:"text-wrap-mode: ;"},
+{id:"text-wrap-style", fullCode:"text-wrap-style: ;"},
+{id:"top", fullCode:"top: ;"},
+{id:"touch-action", fullCode:"touch-action: ;"},
+{id:"transform", fullCode:"transform: ;"},
+{id:"transform-box", fullCode:"transform-box: ;"},
+{id:"transform-origin", fullCode:"transform-origin: ;"},
+{id:"transform-style", fullCode:"transform-style: ;"},
+{id:"transition", fullCode:"transition: ;"},
+{id:"transition-delay", fullCode:"transition-delay: ;"},
+{id:"transition-duration", fullCode:"transition-duration: ;"},
+{id:"transition-property", fullCode:"transition-property: ;"},
+{id:"transition-timing-function", fullCode:"transition-timing-function: ;"},
+{id:"translate", fullCode:"translate: ;"},
+{id:"unicode-bidi", fullCode:"unicode-bidi: ;"},
+{id:"user-select", fullCode:"user-select: ;"},
+{id:"vertical-align", fullCode:"vertical-align: ;"},
+{id:"view-timeline", fullCode:"view-timeline: ;"},
+{id:"view-timeline-name", fullCode:"view-timeline-name: ;"},
+{id:"view-timeline-axis", fullCode:"view-timeline-axis: ;"},
+{id:"view-transition-name", fullCode:"view-transition-name: ;"},
+{id:"view-transition-duration", fullCode:"view-transition-duration: ;"},
+{id:"view-transition-timing-function", fullCode:"view-transition-timing-function: ;"},
+{id:"visibility", fullCode:"visibility: ;"},
+{id:"white-space", fullCode:"white-space: ;"},
+{id:"widows", fullCode:"widows: ;"},
+{id:"width", fullCode:"width: ;"},
+{id:"w", fullCode:"width: ;"},
+{id:"bot", fullCode:"bottom: ;"},
+{id:"will-change", fullCode:"will-change: ;"},
+{id:"word-break", fullCode:"word-break: ;"},
+{id:"word-spacing", fullCode:"word-spacing: ;"},
+{id:"writing-mode", fullCode:"writing-mode: ;"},
+{id:"z-index", fullCode:"z-index: ;"},
+{id:"zin", fullCode:"z-index: ;"},
+{id:"zoom", fullCode:"zoom: ;"}
+  ];
+  
+/*html*/
 let autoCompDat = [
-{id:"a", fullCode:"<a> </a>"},
+{id:"id", fullCode:'id=""'},
+{id:"class", fullCode:'class=""'},
+{id:"style", fullCode:'style=""'},
+{id:"title", fullCode:'title=""'},
+{id:"hidden", fullCode:'hidden'},
+{id:"tabindex", fullCode:'tabindex=""'},
+{id:"lang", fullCode:'lang=""'},
+{id:"onclick", fullCode:'onclick=""'},
+{id:"dir", fullCode:'dir=""'},
+{id:"draggable", fullCode:'draggable=""'},
+{id:"contenteditable", fullCode:'contenteditable=""'},
+{id:"spellcheck", fullCode:'spellcheck=""'},
+{id:"accesskey", fullCode:'accesskey=""'},
+{id:"translate", fullCode:'translate=""'},
+{id:"autocapitalize", fullCode:'autocapitalize=""'},
+{id:"data-*", fullCode:'data-=""'},
+{id:"href", fullCode:'href=""'},
+{id:"target", fullCode:'target=""'},
+{id:"rel", fullCode:'rel=""'},
+{id:"download", fullCode:'download'},
+{id:"hreflang", fullCode:'hreflang=""'},
+{id:"referrerpolicy", fullCode:'referrerpolicy=""'},
+{id:"src", fullCode:'src=""'},
+{id:"alt", fullCode:'alt=""'},
+{id:"width", fullCode:'width=""'},
+{id:"height", fullCode:'height=""'},
+{id:"controls", fullCode:'controls'},
+{id:"autoplay", fullCode:'autoplay'},
+{id:"loop", fullCode:'loop'},
+{id:"muted", fullCode:'muted'},
+{id:"poster", fullCode:'poster=""'},
+{id:"preload", fullCode:'preload=""'},
+{id:"type", fullCode:'type=""'},
+{id:"name", fullCode:'name=""'},
+{id:"value", fullCode:'value=""'},
+{id:"placeholder", fullCode:'placeholder=""'},
+{id:"required", fullCode:'required'},
+{id:"disabled", fullCode:'disabled'},
+{id:"readonly", fullCode:'readonly'},
+{id:"checked", fullCode:'checked'},
+{id:"min", fullCode:'min=""'},
+{id:"max", fullCode:'max=""'},
+{id:"step", fullCode:'step=""'},
+{id:"maxlength", fullCode:'maxlength=""'},
+{id:"minlength", fullCode:'minlength=""'},
+{id:"pattern", fullCode:'pattern=""'},
+{id:"autocomplete", fullCode:'autocomplete=""'},
+{id:"multiple", fullCode:'multiple'},
 {id:"abbr", fullCode:"<abbr> </abbr>"},
 {id:"address", fullCode:"<address> </address>"},
-{id:"area", fullCode:"<area>"},
 {id:"article", fullCode:"<article> </article>"},
 {id:"aside", fullCode:"<aside> </aside>"},
 {id:"audio", fullCode:"<audio> </audio>"},
@@ -350,7 +876,6 @@ let autoCompDat = [
 {id:"bdo", fullCode:"<bdo> </bdo>"},
 {id:"blockquote", fullCode:"<blockquote> </blockquote>"},
 {id:"body", fullCode:"<body> </body>"},
-{id:"br", fullCode:"<br>"},
 {id:"button", fullCode:"<button> </button>"},
 {id:"canvas", fullCode:"<canvas> </canvas>"},
 {id:"caption", fullCode:"<caption> </caption>"},
@@ -418,6 +943,7 @@ let autoCompDat = [
 {id:"rb", fullCode:"<rb> </rb>"},
 {id:"rp", fullCode:"<rp> </rp>"},
 {id:"rt", fullCode:"<rt> </rt>"},
+{id:"rtc", fullCode:"<rtc> </rtc>"},
 {id:"ruby", fullCode:"<ruby> </ruby>"},
 {id:"s", fullCode:"<s> </s>"},
 {id:"samp", fullCode:"<samp> </samp>"},
@@ -433,6 +959,7 @@ let autoCompDat = [
 {id:"sub", fullCode:"<sub> </sub>"},
 {id:"summary", fullCode:"<summary> </summary>"},
 {id:"sup", fullCode:"<sup> </sup>"},
+{id:"svg", fullCode:"<svg> </svg>"},
 {id:"table", fullCode:"<table> </table>"},
 {id:"tbody", fullCode:"<tbody> </tbody>"},
 {id:"td", fullCode:"<td> </td>"},
@@ -449,7 +976,10 @@ let autoCompDat = [
 {id:"ul", fullCode:"<ul> </ul>"},
 {id:"var", fullCode:"<var> </var>"},
 {id:"video", fullCode:"<video> </video>"},
-{id:"wbr", fullCode:"<wbr>"}
+{id:"wbr", fullCode:"<wbr>"},
+{id:"area", fullCode:"<area>"},
+{id:"a", fullCode:"<a> </a>"},
+{id:"br", fullCode:"<br>"},
 ];
 
 $("#html").addEventListener("keydown", function(e){
@@ -469,13 +999,103 @@ $("#html").addEventListener("keydown", function(e){
         input.focus();
          updatePreview();
         
-      } else {return; updatePreview()};
+      } else {updatePreview()};
        
      })
      
-   }else{ return; updatePreview()};
+   }else{updatePreview()};
   
-})
+});
+$("#css").addEventListener("keydown", function(e){
+  let input = $("#css");
+   if(e.key == "Enter"){
+     autoCompCss.forEach(data=>{
+       let cPos = input.selectionStart;
+       let tbc = input.value.slice(0, cPos);
+       let tac = input.value.slice(cPos);
+      if(tbc.trimEnd().toLowerCase().endsWith(data.id) == true){
+        e.preventDefault();
+        let changed = tbc.slice(0, tbc.lastIndexOf(data.id));
+        let toInput = changed + data.fullCode + tac;
+        input.value = toInput;
+        input.selectionStart = tbc.lastIndexOf(data.id)+data.fullCode.length-1;
+        input.selectionEnd = tbc.lastIndexOf(data.id)+data.fullCode.length-1;
+     //   input.selectionEnd = cPos+ data.fullCode.length+2-data.id.length;
+        input.focus();
+         updatePreview();
+        
+      } else {updatePreview()};
+       
+     })
+     
+   }else{updatePreview()};
+  
+});
+
+/**fsp ||fse**/
+function enableFsp(e){  
+  if(e.checked == true){  
+    fse.checked = false;  
+    inputarea.style.display = "none";  
+    output.style.display = "block";
+    output.style.height = "94vh";  
+    output.style.top = nlot;  
+  }else{  
+    inputarea.style.display = "block";  
+    output.style.height = "47vh";  
+    output.style.top = lsls == true? slot : nlot;
+    inputs.forEach(input => {  
+      input.style.height = "47vh";  
+      input.style.top = lsls == true? slit : nlit;  
+    });
+  }  
+};  
+  
+function enableFse(e){  
+  if(e.checked == true){  
+    fsp.checked = false;  
+    output.style.display = "none";  
+    inputarea.style.display = "block"; 
+    inputs.forEach(input => {  
+      input.style.height = "94vh";  
+      input.style.top = "82px";  
+    });  
+  }else{  
+    output.style.display = "block";  
+    output.style.height = "47vh";
+    output.style.top = lsls == true? slot : nlot;
+    inputs.forEach(input => {  
+      input.style.height = "47vh";  
+      input.style.top = lsls == true? slit : nlit;  
+    });  
+  }  
+};
+
+function checkLayout() {
+  if(lsls == true){
+    output.style.top = slot;
+    inputs.forEach(input => {
+      input.style.top = slit;
+    });
+  }else{
+    output.style.top = nlot;
+    inputs.forEach(input => {
+      input.style.top = nlit;
+    })
+  }
+};
+
+function swapLayout(){
+  if(lsls == false){
+    lsls = true;
+    localStorage.setItem("layout", "shii");
+    checkLayout();
+  }else if(lsls == true){
+    lsls = false;
+    localStorage.removeItem("layout");
+    checkLayout();
+  }
+};
 
 /**show or hide inputs**/
 function show(inp) {
@@ -523,7 +1143,7 @@ function show(inp) {
     $('#jbtn').style.borderTopColor = 'yellow';
     js.focus();
   }
-}
+};
 
 /**snippets**/
 function snip(txtarea) {
@@ -536,8 +1156,7 @@ function snip(txtarea) {
   updatePreview();
   csnippets.value = "";
 }
-}
-
+};
 
 /**move caret**/
 function moveCaret(destination) {
@@ -582,9 +1201,8 @@ output.contentWindow.console.log = (...args) => {
 };
 
 output.contentWindow.onerror = function(msg) {
-  output.contentWindow.console.log("Iframe error:", msg);
+  output.contentWindow.console.error("Error:", msg);
 };
-
 
 output.contentWindow.console.error=(text)=>{
   let kCons = document.getElementById("log-container");
@@ -647,8 +1265,10 @@ cosInp.onkeydown = function (e) {
     try {
       let result = output.contentWindow.eval(value);
       output.contentWindow.console.log(result);
+      scrollBottom();
     } catch (error) {
       output.contentWindow.console.error(error);
+      scrollBottom();
     }
 
     cosInp.value = "";
@@ -659,6 +1279,7 @@ cosInp.onkeydown = function (e) {
 var kConsBtn = document.createElement("button");
 kConsBtn.innerHTML = "⌨";
 kConsBtn.id = "cbtn";
+
 kConsBtn.style.cssText = `
   height: 40px;
   width: 40px;
@@ -670,68 +1291,84 @@ kConsBtn.style.cssText = `
   right: 14px;
   font-size: 20px;
   color: white;
-  z-index: 9999;
+  z-index: 99999;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
 `;
-kConsBtn.onclick = ()=>{
-  if (sessionStorage.getItem("consoleShown") == "true") {
-    document.getElementById("king-ebuka-console").style.display = "none";
-     sessionStorage.setItem("consoleShown", "false");
-  }else{
-    document.getElementById("king-ebuka-console").style.display = "block";
-      document.getElementById("console-input").focus();
-    sessionStorage.setItem("consoleShown", "true");
-  }
-};
 
 document.body.appendChild(kConsBtn);
-let offsetX = 0;
-let offsetY = 0;
-let isDragging = false;
 
-kConsBtn.style.cursor = "grab";
+//  console toggle logic
+function toggleConsole(){
+  const cons = document.getElementById("king-ebuka-console");
 
-kConsBtn.addEventListener("pointerdown", startDrag);
-kConsBtn.addEventListener("touchstart", startDrag, { passive: false });
-
-function startDrag(e) {
-  isDragging = true;
-  kConsBtn.style.cursor = "grabbing";
-
-  let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  let clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-  const rect = kConsBtn.getBoundingClientRect();
-  offsetX = clientX - rect.left;
-  offsetY = clientY - rect.top;
-
-  document.body.appendChild(kConsBtn);
+  if (sessionStorage.getItem("consoleShown") === "true") {
+    cons.style.display = "none";
+    sessionStorage.setItem("consoleShown", "false");
+  } else {
+    cons.style.display = "block";
+    scrollBottom();
+    document.getElementById("console-input").focus();
+    sessionStorage.setItem("consoleShown", "true");
+  }
 }
 
-document.addEventListener("pointermove", moveDrag);
-document.addEventListener("touchmove", moveDrag, { passive: false });
+// ---------------- DRAG SYSTEM ----------------
+let offsetX = 0;
+let offsetY = 0;
+let startX = 0;
+let startY = 0;
+let isDragging = false;
+let hasMoved = false;
 
-function moveDrag(e) {
+kConsBtn.addEventListener("pointerdown", (e) => {
+  e.preventDefault();
+
+  isDragging = true;
+  hasMoved = false;
+
+  startX = e.clientX;
+  startY = e.clientY;
+
+  const rect = kConsBtn.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+
+  kConsBtn.style.cursor = "grabbing";
+});
+
+document.addEventListener("pointermove", (e) => {
   if (!isDragging) return;
 
-  if (e.cancelable) e.preventDefault(); // stop page scroll
+  const dx = Math.abs(e.clientX - startX);
+  const dy = Math.abs(e.clientY - startY);
 
-  let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  // only start drag if movement is enough
+  if (dx > 5 || dy > 5) {
+    hasMoved = true;
+  }
 
-  kConsBtn.style.left = `${clientX - offsetX}px`;
-  kConsBtn.style.top = `${clientY - offsetY}px`;
+  if (!hasMoved) return;
+
+  kConsBtn.style.left = (e.clientX - offsetX) + "px";
+  kConsBtn.style.top = (e.clientY - offsetY) + "px";
 
   kConsBtn.style.right = "auto";
   kConsBtn.style.bottom = "auto";
-}
+});
 
-document.addEventListener("pointerup", endDrag);
-document.addEventListener("touchend", endDrag);
+document.addEventListener("pointerup", () => {
+  if (!isDragging) return;
 
-function endDrag() {
   isDragging = false;
   kConsBtn.style.cursor = "grab";
-};
+
+  // treat as click if no drag happened
+  if (!hasMoved) {
+    toggleConsole();
+  }
+});
 
 output.contentWindow.console.log("KingConsole");
 
@@ -742,6 +1379,20 @@ output.contentWindow.onerror = function(message, source, lineno, colno, error) {
   );
 };
 
+/*let clickCount = 0;
+const versionEl = document.getElementById("version");
+versionEl.addEventListener("click", () => {
+  clickCount++;
+
+  if (clickCount === 3) {
+    triggerPreeks();
+    clickCount = 0;
+  }
+
+  setTimeout(() => {
+    clickCount = 0;
+  }, 1500);
+});*/
 
 
 function func(){

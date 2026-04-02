@@ -1,2 +1,23 @@
 {
+  "name": "KingCode",
+  "version": "6.2",
+  "author": "King Ebuka 👑",
+  "description": "A powerful mobile code editor with live preview and smart tools",
+
+  "features": [
+    "External CSS support",
+    "JavaScript support",
+    "Code storage with localStorage",
+    "CSS snippets",
+    "Built-in console",
+    "HTML auto-complete",
+    "CSS auto-complete",
+    "Fullscreen editing and preview",
+    "Layout swapping"
+  ],
+
+  "storage": {
+    "type": "localStorage",
+    "autosave": true
+  }
 }

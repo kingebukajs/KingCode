@@ -1,4 +1,4 @@
-<!-- KingCode V6.0 -->
+<!-- KingCode V6.2 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
   <title>KingCode v6.0– Online HTML, CSS & JavaScript Editor</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="description" content="KingCode by Ebuka Francis is a fast and free online code editor for HTML, CSS and JavaScript. Write, run and test code directly in your browser. Version 6.0">
-  
+  <link rel="manifest" href="manifest.json">
   <meta name="keywords" content="KingCode, king code, kingcode, king ebuka code editor, ebuka francis code editor, king ebuka online code editor, code editor by king ebuka, ebuka francis online editor, online code editor, best online code editor, free code editor online, html css javascript editor, live code editor, web based code editor, browser code editor, frontend code editor, coding playground online, developer tools, king Ebuka, Ebuka Francis">
 
   <meta name="author" content="King Ebuka (Ebuka Francis)">
@@ -17,7 +17,7 @@
   <meta name="copyright" content="© 2026 King Ebuka">
 
   <!-- Open Graph -->
-  <meta property="og:title" content=" KingCode v6.0">
+  <meta property="og:title" content=" KingCode v6.2">
   <meta property="og:description" content="Online HTML, CSS & JavaScript code editor created by King Ebuka (Ebuka Francis).">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kingebukajs.github.io/KingCode/">
@@ -33,7 +33,7 @@
   </script>
   <script src="js/ebukatoast.js"></script>
 </head>
-<body onload="verif(); loadCode(); doBTN()">
+<body onload="verif(); loadCode(); doBTN(); checkLayout()">
   <div id="welcome">
     <div id="welcome-card">
      <p id="welctime"></p>
@@ -70,10 +70,52 @@
   <div id="main">
     <div id="header">
   <div id="first-line">
-   <a href="index.html" title="KingCode"><img src='assets/images/logo.png' alt='KingCode logo' height="50">
+   <a href="index.html" title="KingCode"><img src='assets/images/logo.png' alt='KingCode logo' height="49.5">
    <h2>KingCode</h2></a>
-     <button id="menu-btn" onclick="toast('Coming soon...')">&#8942;</button>
+     <button id="menu-btn" onclick="$('#menu-bar').style.display = 'flex'" title="Menu"><b>&#8942;</b></button>
    </div>
+   <div id="menu-bar">
+    <button onclick="$('#menu-bar').style.display = 'none'" title="Close Menu" id="menu-close-btn"><b>𓏴</b></button>
+    
+  <div class="men-cont" id="first">
+    <p style="font-family: 'Orbitron'; color: white;">
+      Fullscreen Preview
+      <span>
+        <toggle class="toggle" style="float: right;">
+          <input type="checkbox" id="toggle1" class="check" onchange="enableFsp(this)">
+          <label id="label1" for="toggle1" style="cursor: pointer"></label>
+        </toggle>
+      </span>
+    </p>
+  </div>
+
+  <div class="men-cont">
+    <p style="font-family: 'Orbitron'; color: white;">
+      Fullscreen Editing
+      <span>
+        <toggle class="toggle" style="float: right;">
+          <input type="checkbox" id="toggle2" class="check" onchange="enableFse(this)">
+          <label for="toggle2" style="cursor: pointer"></label>
+        </toggle>
+      </span>
+    </p>
+  </div>
+  <div class="men-cont" onclick="swapLayout()" style="cursor: pointer">
+    <p style="color: white; font-family: 'Orbitron';" style="cursor: pointer">Swap layout<i class="fa-solid fa-arrows-rotate" style="float: right;"></i> </p>
+  </div>
+  <div class="men-cont" style="cursor: pointer">
+    <p style="color: white; font-family: 'Orbitron';">Settings <i class="fa-solid fa-gear" style="float: right;"></i> </p>
+  </div>
+  
+  <div class="men-cont" style="cursor: pointer">
+    <p style="color: white; font-family: 'Orbitron';">About <img style="float: right;" height="20" width="20" src="assets/icons/icon.png"/> </p>
+  </div>
+  
+  <div class="men-cont" style="cursor: pointer">
+    <p style="color: white; font-family: 'Orbitron';">How to use <i style="float: right;" class="fa-solid fa-circle-question"></i></p>
+  </div>
+  
+</div>
    <div id="second-line">
     <ul id="tabs">
       
@@ -497,14 +539,15 @@ JS</button></li>
     </ul>
    </div>
  </div>
+ 
   <iframe id="output" name="KingCode" title="KingCode Preview" src="" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="accelerometer *; bluetooth *; camera *; clipboard-read *; clipboard-write *; display-capture *; encrypted-media *; geolocation *; gyroscope *; language-detector *; language-model *; local-network-access *; microphone *; midi *; rewriter *; serial *; summarizer *; translator *; web-share *; writer *; xr-spatial-tracking *" scrolling="auto" allowTransparency="true" allowpaymentrequest="true" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer"></iframe>
-  
+  <div id="inputarea">
   <textarea id="html" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('#cselect').style.display='none';" rows="8" cols="40"></textarea>
   
   <textarea id="css" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('.selectss').style.display='none'; $('#cselect').style.display='block';" rows="8" cols="40"></textarea>
   
-  <textarea id="js" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('.selectss').style.display='none'; $('#cselect').style.display='none';" rows="8" cols="40"></textarea>
-  
+  <textarea id="js" class="inputsection" autocorrect="off" autocapitalize="off" spellcheck="false" onfocus="window.currentInput = this; $('.selectss').style.display='none'; $('#cselect').style.display='none';" rows="8" cols="40"></textarea>  
+  </div>
   <div id="king-ebuka-console">
   <div id="log-container">
  </div>

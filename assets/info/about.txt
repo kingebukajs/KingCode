@@ -1,12 +1,19 @@
-Project name: KingCode
-Project version: V6.0
+KingCode v6.2
 
+Author: King Ebuka 👑
 
-Author name: King Ebuka 👑 
- 
-Can now write external Css. 
-Can now write js
-stores code in localStorage 
-css snippets 
-console Available 
-Auto complete tags for html
+KingCode is a powerful mobile-friendly code editor designed for speed, flexibility, and creativity. Built to give developers a smooth coding experience right from their device.
+
+🚀 Features
+
+- Supports external CSS
+- Supports JavaScript
+- Stores code using localStorage
+- Includes ready-to-use CSS snippets
+- Built-in console available
+- HTML tag auto-completion
+- CSS auto-completion
+- Fullscreen editing and live preview
+- Swap layout between editor and preview
+
+KingCode continues to evolve, bringing more powerful features to enhance your coding experience.

@@ -1,0 +1,31 @@
+{
+  "appName": "KingCode",
+  "version": "6.2",
+  "author": "King Ebuka 👑",
+
+  "entry": "index.html",
+
+  "paths": {
+    "html": "index.html",
+    "css": "css/index.css",
+    "js": "js/index.js",
+    "assets": "assets/"
+  },
+
+  "features": {
+    "externalCSS": true,
+    "javascript": true,
+    "localStorage": true,
+    "cssSnippets": true,
+    "console": true,
+    "htmlAutocomplete": true,
+    "cssAutocomplete": true,
+    "fullscreen": true,
+    "swapLayout": true
+  },
+
+  "ui": {
+    "theme": "dark",
+    "layout": "editor-preview"
+  }
+}
